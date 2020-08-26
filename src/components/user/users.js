@@ -2,7 +2,7 @@ class Users{
     constructor(){
         this.users = []
         this.adapter = new UsersAdapter()
-        this.bindEventListeners()
+        // this.bindEventListeners()
         this.fetchAndLoadUsers()
     }
 
