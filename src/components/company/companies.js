@@ -2,7 +2,7 @@ class Companies{
     constructor(){
         this.companies = []
         this.adapter = new CompaniesAdapter()
-        this.bindEventListeners()
+        // this.bindEventListeners()
         this.fetchAndLoadCompanies()
     }
 
