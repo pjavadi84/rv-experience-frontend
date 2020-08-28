@@ -3,13 +3,19 @@ class Users{
         this.users = []
         this.adapter = new UsersAdapter()
         // this.bindEventListeners()
-        this.renderUserForm()
+        this.renderSignupForm()
     }
 
-    renderUserForm(){
-        const customerPortal = document.getElementById("renting")
-        customerPortal.addEventListener("click", ()=>{
-            // Createing form
+    renderSignupForm(){
+            const customerPortal = document.getElementById("user_portal")
+            const userSignUpButton = document.createElement("input")
+            userSignUpButton.setAttribute("type","button")
+            userSignUpButton.setAttribute("value","signup")
+            customerPortal.appendChild(userSignUpButton)
+            
+
+            userSignUpButton.addEventListener("click", ()=> {
+                // Createing form
             const br = document.createElement('br')
             const user = document.getElementById('user_form');
             const userForm = document.createElement('form');
@@ -88,19 +94,18 @@ class Users{
             
             userForm.appendChild(userAddressLabel)
             userForm.appendChild(userAddressInput)
-            user.appendChild(br)
+            userForm.appendChild(br)
            
             userForm.appendChild(userCityLabel)
             userForm.appendChild(userCityInput)
-            user.appendChild(br)
+            userForm.appendChild(br)
 
             userForm.appendChild(userStateLabel)
             userForm.appendChild(userStateInput)
             
-            user.appendChild(userForm);
-        })
+            customerPortal.appendChild(userForm);
+            
+            })
+            
     }
-
-
- 
 }
