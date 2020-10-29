@@ -1,0 +1,27 @@
+.display-4{
+    color: blue
+}
+
+.userSection {
+    max-width: 1400px;
+    width: 100%;
+    margin: 20px auto;
+    padding: 0 20px;
+}
+
+.userDiv{
+    display: flex;
+    justify-content: center;
+    margin: 0 7.5px;
+    border: 2px solid rgb(124, 222, 102);
+    border-radius: 5px;
+    padding-left: 20px;
+    position: relative;
+    width: 100%;
+}
+
+#company_container{
+    width: 100%;
+    position: relative;
+    background-image: url(https://cdn.dealerspike.com/imglib/v1/800x600/imglib/trimsdb/5369141-0-26074391.jpg)
+}
