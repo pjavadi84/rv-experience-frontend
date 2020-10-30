@@ -25,3 +25,17 @@
     position: relative;
     background-image: url(https://cdn.dealerspike.com/imglib/v1/800x600/imglib/trimsdb/5369141-0-26074391.jpg)
 }
+
+.company-card{
+    background-color: teal;
+    margin: auto;
+}
+
+h3{
+    color: white;
+}
+
+.rv-class{
+    color: yellow;
+}
+

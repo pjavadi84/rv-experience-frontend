@@ -18,24 +18,38 @@ class Companies{
         })   
     }
 
-    createCompanies(companiesData){
+    async createCompanies(companiesData){
         // debugger
         for(let comp of companiesData.data){
             // debugger
-            let rvs = this.createArrayOfCompanyRvs(comp.rvs)
-            // debugger
-            this.companies.push(new Company(comp.name, comp.address, comp.city, comp.state, comp.zipcode, comp.phonenumber, comp.building_number, comp.password, comp.email,rvs))
-            debugger
+            // let rvs = this.createArrayOfCompanyRvs(comp.rvs)
+            // let rvs = this.createArrayOfCompanyRvs(comp.rv)
+            // this.companies.push(new Company(comp.name, comp.address, comp.city, comp.state, comp.zipcode, comp.phonenumber, comp.building_number, comp.password, comp.email,rvs))
+            try {
+                // debugger
+                // let rvs = await this.createArrayOfCompanyRvs(comp.rvs)
+                
+                this.companies.push(new Company(comp.id, comp.name, comp.address, comp.city, comp.state, comp.zipcode, comp.phonenumber, comp.building_number, comp.password, comp.email,comp.rvs))
+            } catch(error){
+                console.error(error)
+            } 
         }
     }
 
-    createArrayOfCompanyRvs(ingredients) {
-        let ingredientArray = [];
-        for (let ingredient of ingredients) {
-          ingredientArray.push(ingredient.name);
+    // createArrayOfCompanyRvs(rvs) {
+    //     for (let rv of rvs) {
+    //       let rvArray = [];
+    //       rvArray.push(rv);
+    //     }
+    //     return rvArray
+    // }
+
+    addCompaniesToDom() {
+        for (let company of this.companies) {
+            // debugger
+          company.createCompanyCard()
         }
-        return ingredientArray
-      }
+    }
 
 }
 
