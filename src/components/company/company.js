@@ -1,16 +1,16 @@
 class Company {
-    constructor(company){
-        this.id = company.id,
-        this.name = company.name,
-        this.address = company.address,
-        this.city = company.city,
-        this.state = company.state,
-        this.zipcode = company.zipcode,
-        this.phonenumber = company.phonenumber,
-        this.building_number = company.building_number,
-        this.password = company.password, 
-        this.email = company.email,
-        this.rvs = company.rvs
+    constructor(name, address, city, state, zipcode, phonenumber, building_number, password,email, rvs){
+        this.id = id,
+        this.name = name,
+        this.address = address,
+        this.city = city,
+        this.state = state,
+        this.zipcode = zipcode,
+        this.phonenumber = phonenumber,
+        this.building_number = building_number,
+        this.password = password, 
+        this.email = email,
+        this.rvs = rvs
     }
 
     renderCompany(){
