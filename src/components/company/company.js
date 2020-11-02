@@ -1,6 +1,5 @@
 class Company {
-    constructor(id, name, address, city, state, zipcode, phonenumber, building_number, password,email, rvs){
-        this.id = id,
+    constructor(name, address, city, state, zipcode, phonenumber, building_number,email, rvs){
         this.name = name,
         this.address = address,
         this.city = city,
@@ -8,21 +7,11 @@ class Company {
         this.zipcode = zipcode,
         this.phonenumber = phonenumber,
         this.building_number = building_number,
-        this.password = password, 
         this.email = email,
         this.rvs = rvs
         // this.renderRvList()
         
     }
-
-    // renderCompany(){
-    //     return (`<div id="company-id-${this.id}">
-    //             <a href="" data-id="${this.id}">${this.name}</a>
-    //             <ul id="rvs">
-    //             </ul>
-    //             </div>
-    //     `)
-    // }
     createCompanyCard(){
         let companyList = document.querySelector("div.company-card-container")
         let card = document.createElement('section');
@@ -75,23 +64,6 @@ class Company {
         ul.appendChild(coDeleteBtn)
         ul.appendChild(coEditBtn)
         companyList.appendChild(card)
-
-        coDetailsBtn.addEventListener('click', ()=>{
-            this.renderRvList();
-        })
-    }
-
-    renderRvList(){
-        let companySection = document.getElementsByClassName("company-card")
-        let rvLi = document.createElement('li')
-        
-        for(let rv of this.rvs){
-            rvLi.setAttribute('rv-id',`${rv.id}`)
-            rvLi.innerText = `${rv.name}`
-        }
-        
-        
-        
     }
 
 }

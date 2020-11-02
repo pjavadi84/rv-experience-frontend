@@ -32,7 +32,7 @@ class Companies {
     async createCompanies(companiesData){
         for(let comp of companiesData.data){
             try {
-                this.companies.push(new Company(comp.id, comp.name, comp.address, comp.city, comp.state, comp.zipcode, comp.phonenumber, comp.building_number, comp.password, comp.email,comp.rvs))
+                this.companies.push(new Company(comp.name, comp.address, comp.city, comp.state, comp.zipcode, comp.phonenumber, comp.building_number, comp.email, comp.rvs))
             } catch(error){
                 console.error(error)
             } 
@@ -50,7 +50,7 @@ class Companies {
     postCompany(event){
         event.preventDefault()
         const form = event.target.parentElement
-        const company = new Company(form[1].value,form[2].value,form[3].value,form[4].value,form[5].value,form[6].value,form[7].value,form[8].value,form[9])
+        const company = new Company(form[0].value,form[1].value,form[2].value,form[3].value,form[4].value,form[5].value,form[6].value,form[7].value)
         const configurationObject = {
             method: "POST",
             headers: {
@@ -66,7 +66,6 @@ class Companies {
               "phonenumber":form[5].value,
               "building_number":form[6].value,
               "email":form[7].value,
-              "password":form[8].value
             })
           };
           this.adapter.postCompanyToApi(configurationObject).then(function(json) {
