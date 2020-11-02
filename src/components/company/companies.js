@@ -3,11 +3,11 @@ class Companies {
         this.companies = []
         this.adapter = new CompaniesAdapter()
         this.companyForm = document.getElementsByClassName("new-company-form")
+        this.companyFormSubmit = document.getElementById("company-form-submit");
         this.fetchAndLoadCompanies()
-        this.renderCompanyDetails()
-        
-        // this.bindEventListeners()
+        this.bindEventListeners()
     }
+
 
 
     fetchAndLoadCompanies(){
@@ -19,6 +19,15 @@ class Companies {
             // debugger
         })   
     }
+
+
+    bindEventListeners(){
+        this.companyFormSubmit.addEventListener("click", function(event) {
+            event.preventDefault();
+            this.postCompany(event);
+          }.bind(this))
+    }
+
 
     async createCompanies(companiesData){
         for(let comp of companiesData.data){
@@ -38,51 +47,33 @@ class Companies {
         }
     }
 
-    // should contains all the listeners to the buttons
-    // bindEventListeners(){
-        // let companyDetails = document.querySelectorAll("button#company-details")
-        // companyDetails.addEventListener("click", function() {
-        //     console.log("hi")
-        // // this.renderCompanyDetails();
-        // }) 
-    // }
-
-
-    renderCompanyDetails(){
-
-        // this.adapter.getCompaniesDetails()
-        // console.log(companyId)
-        // debugger
-        // console.log("mashti")
-        // Selecting where you want to render:
-        // let companyCard = document.getElementsByClassName("company-card")
-       
-        // Company information
-        // let coAddress = document.createElement("ul")
-        // coAddress.innerText = `${this.address}`
-        // let coCity = document.createElement('ul')
-        // let coState = document.createElement('ul')
-        // let coBuildNum = document.createElement('ul')
-        // let coEmail = document.createElement('ul')
-        // RVs Button
-        // let rvsButton = document.createElement('button')
-        // rvsButton.setAttribute("id", "view-rvs")
-        // rvsButton.setAttribute("data-id",`${this.id}`)
-        // rvsButton.innerText = "View Rvs"
-        // EDIT Button(for Company)
-        // let editCompany = document.createElement('button')
-        // editCompany.setAttribute("id","edit")
-        // editCompany.setAttribute("data-id",`${this.id}`)
-        // Delete Button(for Company)
-        // let deleteCompany = document.createElement('button')
-        // deleteCompany.setAttribute("id","delete")
-        // deleteCompany.setAttribute("data-id",`${this.id}`)
-        // deleteCompany.innerText = "Delete Company"
-
-        // companyCard.appendChild(coAddress)
-
-        // this.adapter.getCompanyDetails().then(info => console.log(info))
+    postCompany(event){
+        event.preventDefault()
+        const form = event.target.parentElement
+        const company = new Company(form[1].value,form[2].value,form[3].value,form[4].value,form[5].value,form[6].value,form[7].value,form[8].value,form[9])
+        const configurationObject = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              "name": form[0].value,
+              "address": form[1].value,
+              "city": form[2].value,
+              "state": form[3].value,
+              "zipcode":form[4].value,
+              "phonenumber":form[5].value,
+              "building_number":form[6].value,
+              "email":form[7].value,
+              "password":form[8].value
+            })
+          };
+          this.adapter.postCompanyToApi(configurationObject).then(function(json) {
+            company.createCompanyCard(json);
+          }.bind(this))
     }
+
 
 }
 

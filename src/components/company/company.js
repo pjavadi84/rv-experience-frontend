@@ -35,13 +35,30 @@ class Company {
         companyName.innerText = this.name;
         let coZipCode = document.createElement("ul")
         coZipCode.innerText = `zip code: ${this.zipcode}`
-        // debugger
         companyInfo.appendChild(companyName);
+
+        // RV button
         let coDetailsBtn = document.createElement("button")
         coDetailsBtn.setAttribute("class","btn btn-dark")
         coDetailsBtn.setAttribute("id","company-details")
         coDetailsBtn.setAttribute("data-id",`${this.id}`)
-        coDetailsBtn.innerText = "Details"
+        coDetailsBtn.innerText = "Rvs"
+
+        // EDIT Company Button
+        let coEditBtn = document.createElement("button")
+        coEditBtn.setAttribute("class","btn btn-warning")
+        coEditBtn.setAttribute("id","update-company")
+        coEditBtn.setAttribute("data-id", `${this.id}`)
+        coEditBtn.innerText = "Edit"
+        
+
+        // DELETE Company Button
+        let coDeleteBtn = document.createElement("button")
+        coDeleteBtn.setAttribute("class","btn btn-danger")
+        coDeleteBtn.setAttribute("id","delete-company")
+        coDeleteBtn.setAttribute("data-id", `${this.id}`)
+        coDeleteBtn.innerText = "Delete"
+
         
         let companyAddress = document.createElement("li");
         companyAddress.innerText = `street: ${this.address};`
@@ -55,6 +72,8 @@ class Company {
         card.appendChild(coZipCode);
         card.appendChild(companyInfo)
         ul.appendChild(coDetailsBtn);
+        ul.appendChild(coDeleteBtn)
+        ul.appendChild(coEditBtn)
         companyList.appendChild(card)
 
         coDetailsBtn.addEventListener('click', ()=>{
@@ -71,7 +90,7 @@ class Company {
             rvLi.innerText = `${rv.name}`
         }
         
-        companySection.appendChild(rvLi);
+        
         
     }
 
