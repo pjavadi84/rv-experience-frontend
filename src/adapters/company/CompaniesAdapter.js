@@ -20,8 +20,9 @@ class CompaniesAdapter{
         .then(res => res.json())
         .catch(error => alert("Cannot save this company record into database" + error))
     }
-
+    
     getCompanyByRv(rv){
         return fetch(this.baseURL + `/${rv}`).then(res => res.json())
+        
     }
 }

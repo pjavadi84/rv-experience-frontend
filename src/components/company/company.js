@@ -11,6 +11,7 @@ class Company {
         this.password = password, 
         this.email = email,
         this.rvs = rvs
+        // this.renderRvList()
         
     }
 
@@ -25,15 +26,23 @@ class Company {
     createCompanyCard(){
         let companyList = document.querySelector("div.company-card-container")
         let card = document.createElement('section');
-        card.setAttribute("id",`${this.id}`)
+        card.setAttribute("company-id",`${this.id}`)
         card.className = "company-card";
         let companyInfo = document.createElement('div');
         companyInfo.className = "company-info";
         // debugger
         let companyName = document.createElement("h3");
         companyName.innerText = this.name;
+        let coZipCode = document.createElement("ul")
+        coZipCode.innerText = `zip code: ${this.zipcode}`
         // debugger
         companyInfo.appendChild(companyName);
+        let coDetailsBtn = document.createElement("button")
+        coDetailsBtn.setAttribute("class","btn btn-dark")
+        coDetailsBtn.setAttribute("id","company-details")
+        coDetailsBtn.setAttribute("data-id",`${this.id}`)
+        coDetailsBtn.innerText = "Details"
+        
         let companyAddress = document.createElement("li");
         companyAddress.innerText = `street: ${this.address};`
         companyInfo.appendChild(companyAddress);
@@ -41,26 +50,29 @@ class Company {
         companyCity.innerText = `city: ${this.city}`;
         companyInfo.appendChild(companyCity);
         let ul = document.createElement('ul')
-        ul.innerHTML = "<b>List of Rvs:</b>"
-        
-        for (let rv of this.rvs){
-            debugger
-            let rvForLi = document.createElement('ul')
-            rvForLi.setAttribute("class","rv-class")
-            rvForLi.setAttribute("id",`${rv.id}`)
-            // debugger
-            rvForLi.innerHTML = `<b>${rv.name}</b> - maximum capacity:${rv.capacity} - price per day:$ ${rv.rate_per_day}`
-            ul.appendChild(rvForLi);
-        }
-        
-        companyInfo.appendChild(ul);
+        // ul.innerHTML = "<b>List of Rvs:</b>"
+        companyInfo.appendChild(ul)
+        card.appendChild(coZipCode);
         card.appendChild(companyInfo)
-        // debugger
+        ul.appendChild(coDetailsBtn);
         companyList.appendChild(card)
-        // debugger
-        // companyList.innerHTML(card);
-        // debugger
+
+        coDetailsBtn.addEventListener('click', ()=>{
+            this.renderRvList();
+        })
     }
 
+    renderRvList(){
+        let companySection = document.getElementsByClassName("company-card")
+        let rvLi = document.createElement('li')
+        
+        for(let rv of this.rvs){
+            rvLi.setAttribute('rv-id',`${rv.id}`)
+            rvLi.innerText = `${rv.name}`
+        }
+        
+        companySection.appendChild(rvLi);
+        
+    }
 
 }

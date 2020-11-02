@@ -29,6 +29,7 @@
 .company-card{
     background-color: teal;
     margin: auto;
+    border-radius: 25px;
 }
 
 h3{
