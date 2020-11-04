@@ -2,7 +2,6 @@
 class CompaniesAdapter{
     constructor(){
         this.baseUrl = "http://localhost:3000/api/v1/companies"
-
     }
 
 
@@ -10,8 +9,8 @@ class CompaniesAdapter{
         try {
           const response = await axios.get(this.baseUrl);
           return response
-        } catch (error) {
-          console.log(error);
+        } catch {
+          alert("Cannot load companies into database")
         }
     }
 
@@ -25,4 +24,22 @@ class CompaniesAdapter{
         return fetch(this.baseURL + `/${rv}`).then(res => res.json())
         
     }
+
+    // removeCompany(event){
+        
+        // const configObj = {
+        //     method: 'DELETE',
+        //     headers: { 
+        //         'Content-Type': 'application/json',
+        //         'Accept': 'application/json'
+        //     }
+        // }
+
+        // let companyUl = this.baseUrl + `/${event.target.dataset.id}`
+        
+        // fetch(companyUl, configObj)
+        // .then(res => res.json())
+        // .then((event.target.parentElement.remove()))
+        
+    // }
 }
