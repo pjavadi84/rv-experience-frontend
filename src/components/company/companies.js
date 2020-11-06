@@ -2,14 +2,15 @@ class Companies {
     constructor(){
         this.companies = []
         this.adapter = new CompaniesAdapter()
+        this.rvsAdapter = new RvsAdapter()
         this.rvs = new Rvs()
+        this.rv = new Rv()
         this.companyForm = document.getElementsByClassName("new-company-form")
         this.companyFormSubmit = document.getElementById("company-form-submit");
         this.companyDeleteBtn = document.getElementById("delete-company")
-        this.fetchAndLoadCompanies()
-        this.bindEventListeners()
-        this.callToRemove()
-        
+        this.fetchAndLoadCompanies()   
+        // this.rvResources() 
+        // this.loadRvResource()    
     }
 
 
@@ -28,33 +29,20 @@ class Companies {
     async bindEventListeners(){
             this.companyFormSubmit.addEventListener("click", function(event){   
             this.postCompany(event);
-            }.bind(this))   
-    }
-    
-    
+            }.bind(this)) 
+            
+            this.showRvs = document.getElementsByClassName("btn btn-dark")
 
-
-
-    async createCompanies(companiesData){
-        for(let comp of companiesData.data){
-            try {
-                this.companies.push(new Company(comp.id, comp.name, comp.address, comp.city, comp.state, comp.zipcode, comp.phonenumber, comp.building_number, comp.email, comp.rvs))
-                
-            } catch(error){
-                console.error(error)
-            } 
-        }
+            for (let showForm of this.showRvs){
+                showForm.addEventListener("click", (event)=>{
+                    this.rv.renderRvForm(event);
+                })
+            }
+            
     }
 
 
-    addCompaniesToDom() {
-        for (let company of this.companies) {
-            // debugger
-          company.createCompanyCard()
-          
-        }
-    }
-
+    // POSTING TO MY RAILS API:
     postCompany(event){
         event.preventDefault()
         const form = event.target.parentElement
@@ -79,19 +67,36 @@ class Companies {
 
           form.reset();
 
-          this.adapter.postCompanyToApi(configurationObject).then(function(json) {
-            var companyPost = new Company(json.company.id, json.company.name, json.company.address, json.company.city, json.company.state,
-                json.company.zipcode, json.company.phonenumber, json.company.building_number, json.company.email)
-            // let companyHash = companyPost.name
-            
-            companyPost.createCompanyCard();
-            // debugger
-          }.bind(this))  
+
+        this.adapter.postCompanyToApi(configurationObject).then((json)=>{
+            let companyPost = new Company(json.company.id, json.company.name, json.company.address, json.company.city, json.company.state,json.company.zipcode, json.company.phonenumber, json.company.building_number, json.company.email)
+            companyPost.createCompanyCard()
+            })
+
+    }
+           
+
+    async createCompanies(companiesData){
+        for(let comp of companiesData.data){
+            try {
+                this.companies.push(new Company(comp.id, comp.name, comp.address, comp.city, comp.state, comp.zipcode, comp.phonenumber, comp.building_number, comp.email, comp.rvs))
+                
+            } catch(error){
+                console.error(error)
+            } 
+        }
+    }
+
+
+    addCompaniesToDom() {
+        for (let company of this.companies) {
+            company.createCompanyCard()
+        }
     }
 
     callToRemove(){
         document.querySelectorAll("#delete-company").forEach(deleteBtn => deleteBtn.addEventListener('click', (event)=>{
-            // this.adapter.removeCompany(event)
+           
             const configObj = {
                 method: 'DELETE',
                 headers: { 
@@ -101,10 +106,10 @@ class Companies {
             }
     
             let companyUl = this.adapter.baseUrl + `/${event.target.dataset.id}`
+            fetch(companyUl, configObj)   
+            let companySection = document.getElementById(`${event.target.dataset.id}`)
+            companySection.remove()
             
-            fetch(companyUl, configObj)
-            // .then(res => res.json())
-            // .then((event.target.parentElement.remove()))
         })
         )
     }

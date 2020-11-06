@@ -16,7 +16,7 @@ class Company {
     createCompanyCard(){
         let companyList = document.querySelector("div.company-card-container")
         let card = document.createElement('section');
-        card.setAttribute("company-id",`${this.id}`)
+        card.setAttribute("id",`id-${this.id}`)
         card.className = "company-card";
         let companyInfo = document.createElement('div');
         companyInfo.className = "company-info";
@@ -30,13 +30,13 @@ class Company {
         // RV button
         let coDetailsBtn = document.createElement("button")
         coDetailsBtn.setAttribute("class","btn btn-dark")
-        coDetailsBtn.setAttribute("id","company-rvs")
+        coDetailsBtn.setAttribute("id",`company-${this.id}-rvs`)
         coDetailsBtn.setAttribute("data-id",`${this.id}`)
         coDetailsBtn.innerText = "Rvs"
 
         // RV Uls
-        let rvUls = document.createElement("ul")
-        rvUls.setAttribute("id","rvs")
+        let rvUls = document.createElement("div")
+        rvUls.setAttribute("class",`rv-form-${this.id}`)
 
         // EDIT Company Button
         let coEditBtn = document.createElement("button")
@@ -56,7 +56,7 @@ class Company {
 
         
         let companyAddress = document.createElement("li");
-        companyAddress.innerText = `street: ${this.address};`
+        companyAddress.innerText = `street: ${this.address}`
         companyInfo.appendChild(companyAddress);
         let companyCity = document.createElement("li");
         companyCity.innerText = `city: ${this.city}`;

@@ -14,32 +14,11 @@ class CompaniesAdapter{
         }
     }
 
-    postCompanyToApi(configObject){
+    async postCompanyToApi(configObject){
         return fetch(this.baseUrl, configObject)
         .then(res => res.json())
         .catch(error => alert("Cannot save this company record into database" + error))
     }
     
-    getCompanyByRv(rv){
-        return fetch(this.baseURL + `/${rv}`).then(res => res.json())
-        
-    }
 
-    // removeCompany(event){
-        
-        // const configObj = {
-        //     method: 'DELETE',
-        //     headers: { 
-        //         'Content-Type': 'application/json',
-        //         'Accept': 'application/json'
-        //     }
-        // }
-
-        // let companyUl = this.baseUrl + `/${event.target.dataset.id}`
-        
-        // fetch(companyUl, configObj)
-        // .then(res => res.json())
-        // .then((event.target.parentElement.remove()))
-        
-    // }
 }

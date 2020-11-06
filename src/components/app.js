@@ -5,6 +5,7 @@ class App {
         this.companies = new Companies()
         this.company = new Company()
         this.rvs = new Rvs();
+        this.rv = new Rv()
     }
 
     
