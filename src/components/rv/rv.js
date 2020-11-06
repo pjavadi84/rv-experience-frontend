@@ -5,8 +5,9 @@ class Rv{
         this.capacity = capacity,
         this.rate_per_day = rate_per_day,
         this.company_id = company_id
+        this.rvAdapter = new RvsAdapter()
         this.rvFormDiv = document.getElementsByClassName("rv-form")
-        
+        // this.rvFormSubmit = document.getElementById("rv-form-submit")
     }
 
     renderRvForm(event){
@@ -40,12 +41,13 @@ class Rv{
             let rvDailyPriceInput = document.createElement("input")
             rvDailyPriceInput.setAttribute("class","form-control")
             rvDailyPriceInput.setAttribute("id", `${event.target.dataset.id}`)
-            rvDailyPriceInput.setAttribute("placeholder", "Enter number of guests this vehicle can fit")
+            rvDailyPriceInput.setAttribute("placeholder", "Enter daily rate")
 
             // SUBMIT
             let rvSubmitBtn = document.createElement("button")
             rvSubmitBtn.innerText = "Submit"
-            rvSubmitBtn.setAttribute("id","company-form-submit")
+            rvSubmitBtn.setAttribute("data-id",`${event.target.dataset.id}`)
+            // rvSubmitBtn.setAttribute("id",`${event.target.id}`)  
             rvSubmitBtn.setAttribute("type","submit")
             rvSubmitBtn.setAttribute("value","Add Rv")
 
@@ -58,8 +60,43 @@ class Rv{
             rvForm.appendChild(rvSubmitBtn)
             rvFormDiv.appendChild(rvForm)
             form.appendChild(rvFormDiv)
-        
+
+           rvSubmitBtn.addEventListener("click", (e)=>{
+               e.preventDefault();
+               this.postRv(e)
+           })
     }
 
+    postRv(event){
+        const form = event.target.parentElement
+        let eventId = event.target.dataset.id
+        
+        const configurationObject = {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+              "Accept": "application/json"
+            },
+            body: JSON.stringify({
+              "name": form[0].value,
+              "capacity": form[1].value,
+              "rate_per_day": form[2].value,
+              "company_id": eventId
+            })
+        };
+
+        
+
+        this.rvAdapter.postRvToApi(eventId,configurationObject).then((json)=>{
+            console.log(json);
+            let rvPost = new Rv(json.name, json.capacity, json.rate_per_day, json.company_id)
+            // companyPost.createCompanyCard()
+            console.log(rvPost)
+        })
+
+        form.reset();
+
+
+    }
 
 }

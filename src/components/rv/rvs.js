@@ -13,4 +13,5 @@ class Rvs {
         this.compCard.appendChild(this.rvSection)
     }
 
+    
 }

@@ -16,4 +16,11 @@ class RvsAdapter {
         }
     }
 
+    postRvToApi(id,configObject){
+        let rvsUrl = this.baseUrl + `/${id}/rvs`
+        return fetch(rvsUrl, configObject)
+        .then(res => res.json())
+        .catch(error => alert("Cannot save this RV record into its associated company" + error))
+    }
+
 }

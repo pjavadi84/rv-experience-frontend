@@ -8,6 +8,7 @@ class Companies {
         this.companyForm = document.getElementsByClassName("new-company-form")
         this.companyFormSubmit = document.getElementById("company-form-submit");
         this.companyDeleteBtn = document.getElementById("delete-company")
+        this.rvFormSubmit = document.getElementById("rv-form-submit")
         this.fetchAndLoadCompanies()   
         // this.rvResources() 
         // this.loadRvResource()    
@@ -35,10 +36,9 @@ class Companies {
 
             for (let showForm of this.showRvs){
                 showForm.addEventListener("click", (event)=>{
-                    this.rv.renderRvForm(event);
+                    this.rv.renderRvForm(event)
                 })
-            }
-            
+            }       
     }
 
 
@@ -46,7 +46,7 @@ class Companies {
     postCompany(event){
         event.preventDefault()
         const form = event.target.parentElement
-        // debugger
+        
         const configurationObject = {
             method: "POST",
             headers: {
@@ -71,8 +71,12 @@ class Companies {
         this.adapter.postCompanyToApi(configurationObject).then((json)=>{
             let companyPost = new Company(json.company.id, json.company.name, json.company.address, json.company.city, json.company.state,json.company.zipcode, json.company.phonenumber, json.company.building_number, json.company.email)
             companyPost.createCompanyCard()
-            })
+        })
 
+    }
+
+    postRv(event){
+        console.log(event)
     }
            
 
@@ -112,6 +116,10 @@ class Companies {
             
         })
         )
+    }
+
+    submitRvToApi(){
+        console.log("shotor")
     }
     
 
