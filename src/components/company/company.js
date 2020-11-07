@@ -26,13 +26,23 @@ class Company {
         let coZipCode = document.createElement("ul")
         coZipCode.innerText = `zip code: ${this.zipcode}`
         companyInfo.appendChild(companyName);
+        let rvListDiv = document.createElement("div")
+        rvListDiv.setAttribute("id",`${this.id}`)
+        
 
-        // RV button
+        // CREATE RV
         let coDetailsBtn = document.createElement("button")
         coDetailsBtn.setAttribute("class","btn btn-dark")
         coDetailsBtn.setAttribute("id",`company-${this.id}-rvs`)
         coDetailsBtn.setAttribute("data-id",`${this.id}`)
-        coDetailsBtn.innerText = "Rvs"
+        coDetailsBtn.innerText = "Add Rvs"
+
+        // SHOW LIST OF RVs
+        let rvList = document.createElement("button")
+        rvList.setAttribute("class","btn btn-info")
+        rvList.setAttribute("id",`show-rvs`)
+        rvList.setAttribute("data-id",`${this.id}`)
+        rvList.innerText = "Show Rvs"
 
         // RV Uls
         let rvUls = document.createElement("div")
@@ -66,9 +76,11 @@ class Company {
         companyInfo.appendChild(ul)
         card.appendChild(coZipCode);
         card.appendChild(companyInfo)
+        card.appendChild(rvListDiv)
         ul.appendChild(coDetailsBtn);
         ul.appendChild(coDeleteBtn)
         ul.appendChild(coEditBtn)
+        ul.appendChild(rvList)
         card.appendChild(rvUls)
         companyList.appendChild(card)
         

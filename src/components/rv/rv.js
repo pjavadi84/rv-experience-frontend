@@ -1,12 +1,14 @@
 class Rv{
-    constructor(id, name, capacity, rate_per_day, company_id){
-        this.id = id,
+    constructor(name, capacity, rate_per_day, company_id){
+        // this.id = id,
         this.name = name,
         this.capacity = capacity,
         this.rate_per_day = rate_per_day,
         this.company_id = company_id
         this.rvAdapter = new RvsAdapter()
+        this.companyAdapter = new CompaniesAdapter()
         this.rvFormDiv = document.getElementsByClassName("rv-form")
+      
         // this.rvFormSubmit = document.getElementById("rv-form-submit")
     }
 
@@ -51,6 +53,14 @@ class Rv{
             rvSubmitBtn.setAttribute("type","submit")
             rvSubmitBtn.setAttribute("value","Add Rv")
 
+            // CANCEL
+            let rvCancelBtn = document.createElement("button")
+            rvCancelBtn.innerText = "Cancel"
+            rvCancelBtn.setAttribute("data-id",`${event.target.dataset.id}`)
+            // rvSubmitBtn.setAttribute("id",`${event.target.id}`)  
+            rvCancelBtn.setAttribute("type","cancel")
+            rvCancelBtn.setAttribute("value","Cancel Form")
+
             rvForm.appendChild(rvNameLabel)
             rvForm.appendChild(rvNameInput)
             rvForm.appendChild(rvCapacityLabel)
@@ -58,6 +68,7 @@ class Rv{
             rvForm.appendChild(rvDailyPriceLabel)
             rvForm.appendChild(rvDailyPriceInput)
             rvForm.appendChild(rvSubmitBtn)
+            rvForm.appendChild(rvCancelBtn)
             rvFormDiv.appendChild(rvForm)
             form.appendChild(rvFormDiv)
 
@@ -70,7 +81,8 @@ class Rv{
     postRv(event){
         const form = event.target.parentElement
         let eventId = event.target.dataset.id
-        
+    
+
         const configurationObject = {
             method: "POST",
             headers: {
@@ -85,18 +97,42 @@ class Rv{
             })
         };
 
-        
-
-        this.rvAdapter.postRvToApi(eventId,configurationObject).then((json)=>{
-            console.log(json);
-            let rvPost = new Rv(json.name, json.capacity, json.rate_per_day, json.company_id)
-            // companyPost.createCompanyCard()
-            console.log(rvPost)
-        })
-
-        form.reset();
-
-
+        this.rvAdapter.postRvToApi(eventId,configurationObject)
     }
 
+    renderRvs(e){
+        // console.log(e)
+        
+        // let rvListBtn = document.querySelectorAll("rv_list_id")
+        
+        // this.companyAdapter.getCompanies().then(json => {
+        //     for(let companyRecord of json.data){
+        //         companyRecord.rvs.forEach((showRvs) => {
+        //             let rvLists = document.getElementsByClassName("rv-list")
+
+                    // for(let rvLi of rvLists){
+                    //     let rvName = document.createElement('section')
+                    //     rvName.innerHTML = `<li> Name: ${showRvs.name} - Capacity: ${showRvs.capacity}`
+                    //     rvLi.appendChild(rvName);
+                    // }
+                    
+                    // rvList.innerHTML = `${rvName}`
+                    // console.log(showRvs.name);
+                // })
+            // }
+        // })
+    }
+
+    createRvCard(event){
+        event.forEach(function (arrayItem) {
+            let rvDiv = document.querySelector("div.company-info")
+            let rvLi = document.createElement('li')
+            rvLi.innerHTML =`<br><br><br><br>`
+            rvLi.innerText = `name: ${arrayItem.name} - capacity: ${arrayItem.capacity} - price: ${arrayItem.rate_per_day} `
+            rvDiv.appendChild(rvLi)
+
+            
+        });
+    }
+    
 }

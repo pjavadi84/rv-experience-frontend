@@ -9,6 +9,7 @@ class Companies {
         this.companyFormSubmit = document.getElementById("company-form-submit");
         this.companyDeleteBtn = document.getElementById("delete-company")
         this.rvFormSubmit = document.getElementById("rv-form-submit")
+        this.listOfRvs = document.getElementsByClassName("btn btn-info")
         this.fetchAndLoadCompanies()   
         // this.rvResources() 
         // this.loadRvResource()    
@@ -28,17 +29,21 @@ class Companies {
 
 
     async bindEventListeners(){
-            this.companyFormSubmit.addEventListener("click", function(event){   
-            this.postCompany(event);
-            }.bind(this)) 
+            this.companyFormSubmit.addEventListener("click", function(event){this.postCompany(event);}.bind(this)) 
             
-            this.showRvs = document.getElementsByClassName("btn btn-dark")
+            
+            this.rvForms = document.getElementsByClassName("btn btn-dark")
+            this.rvList = document.getElementsByClassName("btn btn-info")
 
-            for (let showForm of this.showRvs){
+            for (let showForm of this.rvForms){
                 showForm.addEventListener("click", (event)=>{
                     this.rv.renderRvForm(event)
                 })
-            }       
+            }   
+
+            for(let compRvs of this.listOfRvs){
+                compRvs.addEventListener("click", (event)=>{this.getRvs(event);})
+            }
     }
 
 
@@ -118,9 +123,13 @@ class Companies {
         )
     }
 
-    submitRvToApi(){
-        console.log("shotor")
+    getRvs(event){
+        this.rvsAdapter.fetchRvs(event)
+        .then(rvData => this.rvsData(rvData))
     }
-    
 
+    
+    rvsData(event){
+        this.rv.createRvCard(event.data.rvs);
+    }
 }
