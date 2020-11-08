@@ -33,7 +33,7 @@ class Company {
         // CREATE RV
         let coDetailsBtn = document.createElement("button")
         coDetailsBtn.setAttribute("class","btn btn-dark")
-        coDetailsBtn.setAttribute("id",`company-${this.id}-rvs`)
+        coDetailsBtn.setAttribute("id",`company-rvs`)
         coDetailsBtn.setAttribute("data-id",`${this.id}`)
         coDetailsBtn.innerText = "Add Rvs"
 

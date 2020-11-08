@@ -9,7 +9,6 @@ class Rv{
         this.companyAdapter = new CompaniesAdapter()
         this.rvFormDiv = document.getElementsByClassName("rv-form")
       
-        // this.rvFormSubmit = document.getElementById("rv-form-submit")
     }
 
     renderRvForm(event){
@@ -100,37 +99,30 @@ class Rv{
         this.rvAdapter.postRvToApi(eventId,configurationObject)
     }
 
-    renderRvs(e){
-        // console.log(e)
-        
-        // let rvListBtn = document.querySelectorAll("rv_list_id")
-        
-        // this.companyAdapter.getCompanies().then(json => {
-        //     for(let companyRecord of json.data){
-        //         companyRecord.rvs.forEach((showRvs) => {
-        //             let rvLists = document.getElementsByClassName("rv-list")
-
-                    // for(let rvLi of rvLists){
-                    //     let rvName = document.createElement('section')
-                    //     rvName.innerHTML = `<li> Name: ${showRvs.name} - Capacity: ${showRvs.capacity}`
-                    //     rvLi.appendChild(rvName);
-                    // }
-                    
-                    // rvList.innerHTML = `${rvName}`
-                    // console.log(showRvs.name);
-                // })
-            // }
-        // })
-    }
 
     createRvCard(event){
         event.forEach(function (arrayItem) {
-            let rvDiv = document.querySelector("div.company-info")
-            let rvLi = document.createElement('li')
-            rvLi.innerHTML =`<br><br><br><br>`
-            rvLi.innerText = `name: ${arrayItem.name} - capacity: ${arrayItem.capacity} - price: ${arrayItem.rate_per_day} `
-            rvDiv.appendChild(rvLi)
+            let compInfo = document.querySelector("div.company-info")
+           
+            let rvsDiv= document.createElement('div')
+            rvsDiv.setAttribute("class" , "div-of-rvs")
 
+            let rvLi = document.createElement("li")
+            rvLi.setAttribute("id",`${arrayItem.id}`)
+
+
+    
+            let rvDeleteAnchor = document.createElement("button")
+            rvDeleteAnchor.setAttribute("id",`${arrayItem.id}`)
+            rvDeleteAnchor.innerText = "delete"
+
+
+            compInfo.appendChild(rvsDiv)
+            rvsDiv.appendChild(rvLi)
+            
+            rvLi.innerText = `name: ${arrayItem.name} - capacity: ${arrayItem.capacity} - price: ${arrayItem.rate_per_day}`
+
+            rvLi.appendChild(rvDeleteAnchor)
             
         });
     }
