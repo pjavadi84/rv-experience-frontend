@@ -6,7 +6,7 @@ Is there a forth fetch? Yes, and that you can generate new RV records, and on fi
 
 
 
-How to test it?
+<b>How to test it?<b>
 
 **Please note that this is just the front end project. you need to also clone the backend and run a local server to experience this project:**
 
@@ -24,6 +24,9 @@ step 4: on your FRONTEND's terminal, find the index.html and open it in the brow
 
 Now you are ready to experience this very basic fullstack application:
 
+***App Structure:***
+This app is built as an SPA with modularity in mind! There are tiny encapsulated file structures to store logics in separate meaninigful fashion. I decided to create a central index.html and index.js file  as my core files, and app.js file to store all the logical modules that are used in this app such as company, rv, users, and so on. There are also Adapters in which used as an interface to request and send data from frontend to the database. 
+
 
 **Why I made this:**
 one of the most important required project studying at Flatiron. 
@@ -40,5 +43,7 @@ I truly learned how backend and frontend really work together in create a very i
 I hope you enjoy this project as much as I do, and even contribute and find bugs that can help make this app a great app to use, for yourself, for us, and others!
 
 Thank you
+
+
 
 
