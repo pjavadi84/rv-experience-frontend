@@ -99,32 +99,57 @@ class Rv{
         this.rvAdapter.postRvToApi(eventId,configurationObject)
     }
 
-
-    createRvCard(event){
-        event.forEach(function (arrayItem) {
-            let compInfo = document.querySelector("div.company-info")
+    renderRVsToDom(item){
+        let compInfo = document.querySelector("div.company-info")
            
             let rvsDiv= document.createElement('div')
             rvsDiv.setAttribute("class" , "div-of-rvs")
 
             let rvLi = document.createElement("li")
-            rvLi.setAttribute("id",`${arrayItem.id}`)
+            rvLi.setAttribute("id",`${item.id}`)
 
 
     
             let rvDeleteAnchor = document.createElement("button")
-            rvDeleteAnchor.setAttribute("id",`${arrayItem.id}`)
+            rvDeleteAnchor.setAttribute("id",`${item.id}`)
             rvDeleteAnchor.innerText = "delete"
 
 
             compInfo.appendChild(rvsDiv)
             rvsDiv.appendChild(rvLi)
             
-            rvLi.innerText = `name: ${arrayItem.name} - capacity: ${arrayItem.capacity} - price: ${arrayItem.rate_per_day}`
+            rvLi.innerText = `name: ${item.name} - capacity: ${item.capacity} - price: ${item.rate_per_day}`
 
             rvLi.appendChild(rvDeleteAnchor)
-            
-        });
     }
+    // createRvCard(event){
+    //     // for(let arrayItem of event){
+    //     //     console.log(arrayItem);
+    //     // }
+    //     event.forEach(function (arrayItem) {
+    //         let compInfo = document.querySelector("div.company-info")
+           
+    //         let rvsDiv= document.createElement('div')
+    //         rvsDiv.setAttribute("class" , "div-of-rvs")
+
+    //         let rvLi = document.createElement("li")
+    //         rvLi.setAttribute("id",`${arrayItem.id}`)
+
+
+    
+    //         let rvDeleteAnchor = document.createElement("button")
+    //         rvDeleteAnchor.setAttribute("id",`${arrayItem.id}`)
+    //         rvDeleteAnchor.innerText = "delete"
+
+
+    //         compInfo.appendChild(rvsDiv)
+    //         rvsDiv.appendChild(rvLi)
+            
+    //         rvLi.innerText = `name: ${arrayItem.name} - capacity: ${arrayItem.capacity} - price: ${arrayItem.rate_per_day}`
+
+    //         rvLi.appendChild(rvDeleteAnchor)
+            
+    //     });
+    // }
     
 }

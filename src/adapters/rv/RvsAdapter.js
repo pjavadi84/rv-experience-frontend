@@ -13,11 +13,16 @@ class RvsAdapter {
 
 
     fetchRvs(event) {
-        let rvsUrl = this.baseUrl + `/${event.target.dataset.id}/rvs`
+      // OLDER VERSION
+        // let rvsUrl = this.baseUrl + `/${event.target.dataset.id}/rvs`
+        let rvsUrl = this.baseUrl + `/${event}/rvs`
+        
 
         try {
           let response = axios.get(rvsUrl);
+          
           return response
+          
         } catch {
           alert("Cannot load Rvs from database")
         }

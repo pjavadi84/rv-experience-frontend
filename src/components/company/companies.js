@@ -1,6 +1,8 @@
 class Companies {
     constructor(){
         this.companies = []
+        this.companyId = []
+        this.filteredRvs = []
         this.adapter = new CompaniesAdapter()
         this.rvsAdapter = new RvsAdapter()
         this.rvs = new Rvs()
@@ -11,8 +13,7 @@ class Companies {
         this.rvFormSubmit = document.getElementById("rv-form-submit")
         this.listOfRvs = document.getElementsByClassName("btn btn-info")
         this.fetchAndLoadCompanies()   
-        // this.rvResources() 
-        // this.loadRvResource()    
+          
     }
 
 
@@ -42,7 +43,8 @@ class Companies {
             }   
 
             for(let compRvs of this.listOfRvs){
-                compRvs.addEventListener("click", (event)=>{this.getRvs(event);})
+                // compRvs.addEventListener("click", (event)=>{this.getRvs(event);})
+                compRvs.addEventListener("click", (event)=>{this.getRvs(event)})
             }
     }
 
@@ -124,12 +126,31 @@ class Companies {
     }
 
     getRvs(event){
+        let companyId = event.target.dataset.id
+
         this.rvsAdapter.fetchRvs(event)
-        .then(rvData => this.rvsData(rvData))
+        .then(rvData => this.filterCorrectRvs(rvData,companyId))
+        // .then(rvData => this.rvsData(rvData))
+        // .then(rvData => this.rvsData(rvData))
+       
+        
+
     }
 
-    
-    rvsData(event){
-        this.rv.createRvCard(event.data.rvs);
+    filterCorrectRvs(rvData, companyId){
+        this.itemsSelected = []
+        this.compIdInInteger = parseInt(companyId, 10)
+        this.rvsArray = rvData.data.rvs
+        
+        for(let item of this.rvsArray){
+            if(item.company_id === companyId){
+                this.itemsSelected.push(obj)
+                this.rv.renderRVsToDom(this.itemsSelected)
+            } else {
+                 return this.itemsSelected
+            }
+        }
     }
+
+        
 }
