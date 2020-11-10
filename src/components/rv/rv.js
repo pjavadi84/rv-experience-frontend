@@ -101,66 +101,35 @@ class Rv{
     }
 
     renderRVsToDom(rvData, companyId){
-        debugger
         let rvArrays = rvData.data.rvs
 
-        for(let rvObj of rvArrays){
-            
-            if (rvObj.company_id === companyId){
-                let compInfo = document.querySelector("div.company-info")
-           
-            let rvsDiv= document.createElement('div')
-            rvsDiv.setAttribute("class" , "div-of-rvs")
+        rvArrays.forEach((rv) => {
+            if (rv.company_id === parseInt(companyId)){
+                
+                let compInfo = document.getElementById(`${companyId}`)
+                
+                let rvsDiv= document.createElement('div')
+                rvsDiv.setAttribute("class" , "div-of-rvs")
 
-            let rvLi = document.createElement("li")
-            rvLi.setAttribute("id",`${rvObj.id}`)
+                let rvLi = document.createElement("li")
+                rvLi.setAttribute("id",`${rv.id}`)
 
-
-    
-            let rvDeleteAnchor = document.createElement("button")
-            rvDeleteAnchor.setAttribute("id",`${rvObj.id}`)
-            rvDeleteAnchor.innerText = "delete"
-
-
-            compInfo.appendChild(rvsDiv)
-            rvsDiv.appendChild(rvLi)
-            
-            rvLi.innerText = `name: ${rvObj.name} - capacity: ${rvObj.capacity} - price: ${rvObj.rate_per_day}`
-
-            rvLi.appendChild(rvDeleteAnchor)
-            }
-        }
 
         
+                let rvDeleteAnchor = document.createElement("button")
+                rvDeleteAnchor.setAttribute("id",`${rv.id}`)
+                rvDeleteAnchor.innerText = "delete"
+
+
+                compInfo.appendChild(rvsDiv)
+                rvsDiv.appendChild(rvLi)
+            
+                rvLi.innerText = `name: ${rv.name} - capacity: ${rv.capacity} - price: ${rv.rate_per_day}`
+
+                rvLi.appendChild(rvDeleteAnchor)
+            }
+        })
     }
-    // createRvCard(event){
-    //     // for(let arrayItem of event){
-    //     //     console.log(arrayItem);
-    //     // }
-    //     event.forEach(function (arrayItem) {
-    //         let compInfo = document.querySelector("div.company-info")
-           
-    //         let rvsDiv= document.createElement('div')
-    //         rvsDiv.setAttribute("class" , "div-of-rvs")
 
-    //         let rvLi = document.createElement("li")
-    //         rvLi.setAttribute("id",`${arrayItem.id}`)
-
-
-    
-    //         let rvDeleteAnchor = document.createElement("button")
-    //         rvDeleteAnchor.setAttribute("id",`${arrayItem.id}`)
-    //         rvDeleteAnchor.innerText = "delete"
-
-
-    //         compInfo.appendChild(rvsDiv)
-    //         rvsDiv.appendChild(rvLi)
-            
-    //         rvLi.innerText = `name: ${arrayItem.name} - capacity: ${arrayItem.capacity} - price: ${arrayItem.rate_per_day}`
-
-    //         rvLi.appendChild(rvDeleteAnchor)
-            
-    //     });
-    // }
     
 }

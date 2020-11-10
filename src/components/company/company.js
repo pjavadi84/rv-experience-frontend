@@ -16,7 +16,7 @@ class Company {
     createCompanyCard(){
         let companyList = document.querySelector("div.company-card-container")
         let card = document.createElement('section');
-        card.setAttribute("id",`id-${this.id}`)
+        card.setAttribute("id",`${this.id}`)
         card.className = "company-card";
         let companyInfo = document.createElement('div');
         companyInfo.className = "company-info";
