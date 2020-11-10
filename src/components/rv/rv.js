@@ -1,6 +1,7 @@
 class Rv{
     constructor(name, capacity, rate_per_day, company_id){
         // this.id = id,
+        this.rvArray = [],
         this.name = name,
         this.capacity = capacity,
         this.rate_per_day = rate_per_day,
@@ -99,28 +100,38 @@ class Rv{
         this.rvAdapter.postRvToApi(eventId,configurationObject)
     }
 
-    renderRVsToDom(item){
-        let compInfo = document.querySelector("div.company-info")
+    renderRVsToDom(rvData, companyId){
+        debugger
+        let rvArrays = rvData.data.rvs
+
+        for(let rvObj of rvArrays){
+            
+            if (rvObj.company_id === companyId){
+                let compInfo = document.querySelector("div.company-info")
            
             let rvsDiv= document.createElement('div')
             rvsDiv.setAttribute("class" , "div-of-rvs")
 
             let rvLi = document.createElement("li")
-            rvLi.setAttribute("id",`${item.id}`)
+            rvLi.setAttribute("id",`${rvObj.id}`)
 
 
     
             let rvDeleteAnchor = document.createElement("button")
-            rvDeleteAnchor.setAttribute("id",`${item.id}`)
+            rvDeleteAnchor.setAttribute("id",`${rvObj.id}`)
             rvDeleteAnchor.innerText = "delete"
 
 
             compInfo.appendChild(rvsDiv)
             rvsDiv.appendChild(rvLi)
             
-            rvLi.innerText = `name: ${item.name} - capacity: ${item.capacity} - price: ${item.rate_per_day}`
+            rvLi.innerText = `name: ${rvObj.name} - capacity: ${rvObj.capacity} - price: ${rvObj.rate_per_day}`
 
             rvLi.appendChild(rvDeleteAnchor)
+            }
+        }
+
+        
     }
     // createRvCard(event){
     //     // for(let arrayItem of event){

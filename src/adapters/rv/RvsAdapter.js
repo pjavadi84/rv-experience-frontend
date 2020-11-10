@@ -4,17 +4,21 @@ class RvsAdapter {
     }
 
 
-    postRvToApi(id,configObject){
-        let rvsUrl = this.baseUrl + `/${id}/rvs`
-        return fetch(rvsUrl, configObject)
-        .then(res => res.json())
-        .catch(error => alert("Cannot save this RV record into its associated company" + error))
+    postRvToApi(eventId, configObject){
+      debugger
+        this.rvsUrl = this.baseUrl + `/${eventId}/rvs`
+
+        fetch(this.rvsUrl, configObject).then(
+          response => console.log(`${response} RV posted to the database`)
+        );
+       
+        // return fetch(rvsUrl, configObject)
+        // .then(res => res.json())
+        // .catch(error => alert("Cannot save this RV record into its associated company" + error))
     }
 
 
     fetchRvs(event) {
-      // OLDER VERSION
-        // let rvsUrl = this.baseUrl + `/${event.target.dataset.id}/rvs`
         let rvsUrl = this.baseUrl + `/${event}/rvs`
         
 

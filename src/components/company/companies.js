@@ -134,7 +134,7 @@ class Companies {
         let companyId = event.target.dataset.id
 
         this.rvsAdapter.fetchRvs(companyId)
-        .then(rvData => this.filterCorrectRvs(rvData,companyId))
+        .then(rvData => this.rv.renderRVsToDom(rvData,companyId))
         // .then(rvData => this.rvsData(rvData))
         // .then(rvData => this.rvsData(rvData))
        
