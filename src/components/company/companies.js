@@ -24,7 +24,7 @@ class Companies {
             .then(companiesData => this.createCompanies(companiesData))
             .then(() => this.addCompaniesToDom())
             .then(() => this.bindEventListeners())
-            .then(() => this.callToRemove())
+            // .then(() => this.callToRemove())
         })   
     }
 
@@ -38,13 +38,18 @@ class Companies {
 
             for (let showForm of this.rvForms){
                 showForm.addEventListener("click", (event)=>{
+                    // debugger
+
                     this.rv.renderRvForm(event)
                 })
             }   
 
-            for(let compRvs of this.listOfRvs){
+            this.allShowRvBtns = document.querySelectorAll("button#show-rvs")
+
+            for(let showRvBtn of this.allShowRvBtns){
+                // debugger
                 // compRvs.addEventListener("click", (event)=>{this.getRvs(event);})
-                compRvs.addEventListener("click", (event)=>{this.getRvs(event)})
+                showRvBtn.addEventListener("click", (event)=>{this.getRvs(event)})
             }
     }
 
@@ -99,7 +104,7 @@ class Companies {
     }
 
 
-    addCompaniesToDom() {
+    async addCompaniesToDom() {
         for (let company of this.companies) {
             company.createCompanyCard()
         }
@@ -128,7 +133,7 @@ class Companies {
     getRvs(event){
         let companyId = event.target.dataset.id
 
-        this.rvsAdapter.fetchRvs(event)
+        this.rvsAdapter.fetchRvs(companyId)
         .then(rvData => this.filterCorrectRvs(rvData,companyId))
         // .then(rvData => this.rvsData(rvData))
         // .then(rvData => this.rvsData(rvData))
