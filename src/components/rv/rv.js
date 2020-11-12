@@ -6,8 +6,9 @@ class Rv{
         this.capacity = capacity,
         this.rate_per_day = rate_per_day,
         this.company_id = company_id
-        this.rvAdapter = new RvsAdapter()
-        this.companyAdapter = new CompaniesAdapter()
+        // this.rvAdapter = new RvsAdapter()
+        // this.companyAdapter = new CompaniesAdapter()
+        // this.companies = new Companies()
         this.rvFormDiv = document.getElementsByClassName("rv-form")
       
     }
@@ -15,6 +16,8 @@ class Rv{
     renderRvForm(event){
             let form = document.getElementsByClassName(`rv-form-${event.target.dataset.id}`)[0]
             let rvForm = document.createElement("form")
+            rvForm.setAttribute("id", "rv-submit")
+            rvForm.setAttribute("class", "hidden")
             let rvFormDiv = document.createElement("div")
             rvFormDiv.setAttribute("class","form-group")
            
@@ -48,7 +51,8 @@ class Rv{
             // SUBMIT
             let rvSubmitBtn = document.createElement("button")
             rvSubmitBtn.innerText = "Submit"
-            rvSubmitBtn.setAttribute("data-id",`${event.target.dataset.id}`)
+            rvSubmitBtn.setAttribute("id",`${event.target.dataset.id}`)
+            rvSubmitBtn.setAttribute("class","submit-rv")
             // rvSubmitBtn.setAttribute("id",`${event.target.id}`)  
             rvSubmitBtn.setAttribute("type","submit")
             rvSubmitBtn.setAttribute("value","Add Rv")
@@ -79,8 +83,9 @@ class Rv{
     }
 
     postRv(event){
+        let rvAdapter = new RvsAdapter()
         const form = event.target.parentElement
-        let eventId = event.target.dataset.id
+        let eventId = parseInt(event.target.id)
     
 
         const configurationObject = {
@@ -97,7 +102,8 @@ class Rv{
             })
         };
 
-        this.rvAdapter.postRvToApi(eventId,configurationObject)
+        
+        rvAdapter.postRvToApi(eventId,configurationObject)
     }
 
     renderRVsToDom(rvData, companyId){

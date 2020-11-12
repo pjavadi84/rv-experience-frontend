@@ -2,55 +2,79 @@ class Companies {
     constructor(){
         this.companies = []
         this.companyId = []
-        this.filteredRvs = []
-        this.adapter = new CompaniesAdapter()
-        this.rvsAdapter = new RvsAdapter()
-        this.rvs = new Rvs()
         this.rv = new Rv()
+        this.domContent()
+        this.bindEventListeners()
         this.companyForm = document.getElementsByClassName("new-company-form")
-        this.companyFormSubmit = document.getElementById("company-form-submit");
         this.companyDeleteBtn = document.getElementById("delete-company")
-        this.rvFormSubmit = document.getElementById("rv-form-submit")
+        // this.rvFormSubmit = document.getElementById("rv-form-submit")
         this.listOfRvs = document.getElementsByClassName("btn btn-info")
-        this.fetchAndLoadCompanies()   
-          
     }
 
+    
 
-
-    fetchAndLoadCompanies(){
+    // DOM CONTENTS UPON LOADING 
+    domContent(){
         document.addEventListener("DOMContentLoaded", ()=>{
+            this.adapter = new CompaniesAdapter()
             this.adapter.getCompanies()
             .then(companiesData => this.createCompanies(companiesData))
             .then(() => this.addCompaniesToDom())
             .then(() => this.bindEventListeners())
-            // .then(() => this.callToRemove())
-        })   
+        })
     }
 
 
+
     async bindEventListeners(){
-            this.companyFormSubmit.addEventListener("click", function(event){this.postCompany(event);}.bind(this)) 
+        let rvForms = document.getElementsByClassName("btn btn-dark")
+        this.rvList = document.getElementsByClassName("btn btn-info")
+        this.allShowRvBtns = document.getElementsByClassName("btn btn-info")
+        // this.allShowRvBtns = document.querySelectorAll("button#show-rvs")
+
+        this.companyFormSubmit = document.getElementById("company-form-submit")
+        this.deleteBtnCompanies = document.getElementsByClassName("btn btn-danger")
+
+        this.companyFormSubmit.addEventListener("click", function(event){
+            this.postCompany(event);
+        }.bind(this)) 
             
             
-            this.rvForms = document.getElementsByClassName("btn btn-dark")
-            this.rvList = document.getElementsByClassName("btn btn-info")
+            
+        for (let form of rvForms){
+            form.addEventListener("click", (event)=>{
+                this.rv = new Rv(event.name,event.rate_per_day,event.company_id)
+                this.rv.renderRvForm(event)
+            })
+        }   
 
-            for (let showForm of this.rvForms){
-                showForm.addEventListener("click", (event)=>{
-                    // debugger
 
-                    this.rv.renderRvForm(event)
-                })
-            }   
+        for(let showRvBtn of this.allShowRvBtns){
+                showRvBtn.addEventListener("click", (event)=>
+                    {this.getRvs(event);}
+                )
+        }
 
-            this.allShowRvBtns = document.querySelectorAll("button#show-rvs")
+        for(let deleteCompany of this.deleteBtnCompanies){
+            deleteCompany.addEventListener("click", (event)=>{
+                this.removeCompanies(event);
+            })
+        }
+    }
 
-            for(let showRvBtn of this.allShowRvBtns){
-                // debugger
-                // compRvs.addEventListener("click", (event)=>{this.getRvs(event);})
-                showRvBtn.addEventListener("click", (event)=>{this.getRvs(event)})
-            }
+
+    
+    getRvs(event){
+        let rvsAdapter = new RvsAdapter()
+        let companyId = event.target.dataset.id
+
+        rvsAdapter.fetchRvs(companyId)
+        .then(rvData => this.rv.renderRVsToDom(rvData,companyId))
+        // .then(rvData => this.rvsData(rvData))
+        // .then(rvData => this.rvsData(rvData))
+       
+        
+
     }
 
 
@@ -58,7 +82,7 @@ class Companies {
     postCompany(event){
         event.preventDefault()
         const form = event.target.parentElement
-        
+
         const configurationObject = {
             method: "POST",
             headers: {
@@ -78,8 +102,8 @@ class Companies {
           };
 
           form.reset();
-
-
+        
+        this.adapter = new CompaniesAdapter()
         this.adapter.postCompanyToApi(configurationObject).then((json)=>{
             let companyPost = new Company(json.company.id, json.company.name, json.company.address, json.company.city, json.company.state,json.company.zipcode, json.company.phonenumber, json.company.building_number, json.company.email)
             companyPost.createCompanyCard()
@@ -110,9 +134,7 @@ class Companies {
         }
     }
 
-    callToRemove(){
-        document.querySelectorAll("#delete-company").forEach(deleteBtn => deleteBtn.addEventListener('click', (event)=>{
-           
+    async removeCompanies(event){           
             const configObj = {
                 method: 'DELETE',
                 headers: { 
@@ -124,23 +146,11 @@ class Companies {
             let companyUl = this.adapter.baseUrl + `/${event.target.dataset.id}`
             fetch(companyUl, configObj)   
             let companySection = document.getElementById(`${event.target.dataset.id}`)
-            companySection.remove()
             
-        })
-        )
+            companySection.remove()
     }
 
-    getRvs(event){
-        let companyId = event.target.dataset.id
-
-        this.rvsAdapter.fetchRvs(companyId)
-        .then(rvData => this.rv.renderRVsToDom(rvData,companyId))
-        // .then(rvData => this.rvsData(rvData))
-        // .then(rvData => this.rvsData(rvData))
-       
-        
-
-    }
+   
 
     filterCorrectRvs(rvData, companyId){
         this.itemsSelected = []
@@ -155,6 +165,22 @@ class Companies {
                  return this.itemsSelected
             }
         }
+    }
+
+    toggleForm(event){
+        console.log(event);
+        debugger
+        this.rvsubmit = document.getElementsByClassName("submit-rv")
+        const form = this.rvsubmit[0].parentElement
+        this.hideAndShowRvForm(form)
+    }
+
+    hideAndShowRvForm(form){
+        if (form.classList.contains("hidden")) {
+            form.classList.remove("hidden");
+          } else {
+            form.className += " hidden";
+          }
     }
 
         

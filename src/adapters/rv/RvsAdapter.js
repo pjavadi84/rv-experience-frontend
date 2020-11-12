@@ -5,16 +5,12 @@ class RvsAdapter {
 
 
     postRvToApi(eventId, configObject){
-      debugger
         this.rvsUrl = this.baseUrl + `/${eventId}/rvs`
 
         fetch(this.rvsUrl, configObject).then(
-          response => console.log(`${response} RV posted to the database`)
+          response => alert(`This RV added to the record`)
         );
-       
-        // return fetch(rvsUrl, configObject)
-        // .then(res => res.json())
-        // .catch(error => alert("Cannot save this RV record into its associated company" + error))
+
     }
 
 
